@@ -23,3 +23,11 @@ Route::post('/movie/store', [MainController::class, 'movieStore'])
 
 Route::get('/movie/delete/{movie}', [MainController::class, 'movieDelete'])
 ->name('movie.delete');
+
+
+Route::get('/movie/edit/{movie}', [MainController::class, 'movieEdit'])
+->name('movie.edit');
+
+
+Route::post('/movie/save/{movie}', [MainController::class, 'movieSave'])
+->name('movie.save');

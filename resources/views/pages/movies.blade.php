@@ -21,7 +21,7 @@
             </ul>
             <h3>
                 <a href="{{route('movie.delete', $movie)}}" class="text-danger">Delete</a>&nbsp;
-                {{-- <a href="{{route('movie.edit')}}" class="text-primary">edit</a> --}}
+                <a href="{{route('movie.edit', $movie)}}" class="text-primary">edit</a>
             </h3>
             <hr>
         </section>
