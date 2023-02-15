@@ -1,6 +1,7 @@
 @extends('layouts.main_layout')
 
 @section('content')
+    <a href="{{route('movie.create')}}">Add new movie</a>
     @foreach ($movies as $movie)    
         <section class="px-5">
             <h2>{{$movie->name}}</h2>
