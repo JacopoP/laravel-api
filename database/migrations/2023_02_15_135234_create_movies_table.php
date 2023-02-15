@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 64)->unique();
             $table->year('year');
-            $table->integer('cashOut')->nullable();
+            $table->integer('cashOut')->nullable()->unsigned();
             $table->timestamps();
         });
     }
