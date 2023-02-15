@@ -1,7 +1,7 @@
 @extends('layouts.main_layout')
 
 @section('content')
-    <a href="{{route('movie.create')}}">Add new movie</a>
+    <h3><a class="px-5" href="{{route('movie.create')}}">Add new movie</a></h3>
     @foreach ($movies as $movie)    
         <section class="px-5">
             <h2>{{$movie->name}}</h2>
@@ -19,6 +19,10 @@
                     </li>
                 @endforeach        
             </ul>
+            <h3>
+                <a href="{{route('movie.delete', $movie)}}" class="text-danger">Delete</a>&nbsp;
+                {{-- <a href="{{route('movie.edit')}}" class="text-primary">edit</a> --}}
+            </h3>
             <hr>
         </section>
     @endforeach
