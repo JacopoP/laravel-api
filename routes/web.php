@@ -31,3 +31,8 @@ Route::get('/movie/edit/{movie}', [MainController::class, 'movieEdit'])
 
 Route::post('/movie/save/{movie}', [MainController::class, 'movieSave'])
 ->name('movie.save');
+
+
+use App\Http\Controllers\ApiController;
+
+Route::get('/api/v1/movie/all', [ApiController::class, 'movieAll']);
