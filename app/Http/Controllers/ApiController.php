@@ -54,6 +54,28 @@ class ApiController extends Controller
         ]);
     }
 
+    public function movieUpdate(Request $request, Movie $movie){
+        $data = $request->validate([
+            'name' => 'required|string|max:64',
+            'genre_id' => 'required|integer|max:20',
+            'year' => 'required|integer|min:1900|max:2023',
+            'cashOut' => 'nullable|integer',
+            'tags' => 'nullable|array'
+        ]);
+
+        $movie->update($data);
+        $genre = Genre::find($data['genre_id']);
+        $movie->genre()->associate($genre);
+        $movie->save();
+
+        $tags = Tag::find($data['tags']);
+        $movie->tags()->sync($tags);
+
+        return response() -> json([
+            'success' => true,
+        ]);
+    }
+
     public function movieDelete(Movie $movie){
         $movie->tags()->sync([]);
         $movie->delete();

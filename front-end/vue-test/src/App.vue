@@ -42,6 +42,11 @@ export default {
         showFormEdit(movie) {
             this.openForm = false;
             this.newMovie = { ...movie };
+            this.newMovie.tags = [];
+            for (let x = 0; x < movie.tags.length; x++) {
+                const tag = movie.tags[x];
+                this.newMovie.tags.push(tag.id);
+            }
             setTimeout(() => this.openForm = true, 0)
         },
 
@@ -50,15 +55,28 @@ export default {
         },
 
         addMovie(movie) {
+            if ('id' in movie) {
+                axios.post(apiUrl + 'movie/update/' + movie.id, movie)
+                    .then(res => {
+                        const data = res.data;
+                        if (data.success) {
+                            this.getMovies();
+                        }
+                    })
+                    .catch(err => console.error(err));
+            }
+
+            else {
+                axios.post(apiUrl + 'movie/store', movie)
+                    .then(res => {
+                        const data = res.data;
+                        if (data.success) {
+                            this.getMovies();
+                        }
+                    })
+                    .catch(err => console.error(err));
+            }
             this.openForm = false;
-            axios.post(apiUrl + 'movie/store', movie)
-                .then(res => {
-                    const data = res.data;
-                    if (data.success) {
-                        this.getMovies();
-                    }
-                })
-                .catch(err => console.error(err));
         },
 
         deleteMovie(movie) {

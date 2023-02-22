@@ -36,7 +36,8 @@ export default {
                 <label for="tags[]">{{ tag.name }}</label><br>
             </div>
 
-            <input type="submit" value="ADD NEW MOVIE" @click.prevent="$emit('addMovie', this.newMovie)">
+            <input type="submit" :value="'id' in this.newMovie ? 'UPDATE MOVIE' : 'ADD NEW MOVIE'"
+                @click.prevent="$emit('addMovie', this.newMovie)">
             <input type="submit" value="Cancel" @click.prevent="$emit('closeForm', this.newMovie)">
         </form>
     </section>
