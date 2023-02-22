@@ -10,7 +10,7 @@ use App\Models\Tag;
 
 class ApiController extends Controller
 {
-    public function movieAll() {
+    public function getAll() {
         $movies = Movie :: with(['tags', 'genre'])->orderBy('created_at', 'desc') -> get();
         $genres = Genre::all();
         $tags = Tag::all();
@@ -21,6 +21,36 @@ class ApiController extends Controller
                 'genres' => $genres,
                 'tags' => $tags,
             ],
+        ]);
+    }
+
+    public function movieAll() {
+        $movies = Movie :: with(['tags', 'genre'])->orderBy('created_at', 'desc') -> get();
+        return response() -> json([
+            'success' => true,
+            'movies' => $movies,
+        ]);
+    }
+
+    public function movieStore(Request $request){
+        $data = $request->validate([
+            'name' => 'required|string|max:64',
+            'genre_id' => 'required|integer|max:20',
+            'year' => 'required|integer|min:1900|max:2023',
+            'cashOut' => 'nullable|integer',
+            'tags' => 'nullable|array'
+        ]);
+
+        $movie = Movie::make($data);
+        $genre = Genre::find($data['genre_id']);
+        $movie->genre()->associate($genre);
+        $movie->save();
+
+        $tags = Tag::find($data['tags']);
+        $movie->tags()->attach($tags);
+
+        return response() -> json([
+            'success' => true,
         ]);
     }
 }
