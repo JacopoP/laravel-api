@@ -34,8 +34,15 @@ export default {
         },
 
         showFormCreate() {
+            this.openForm = false;
             this.newMovie = { ...EMPTY_NEW_MOVIE };
-            this.openForm = true;
+            setTimeout(() => this.openForm = true, 0)
+        },
+
+        showFormEdit(movie) {
+            this.openForm = false;
+            this.newMovie = { ...movie };
+            setTimeout(() => this.openForm = true, 0)
         },
 
         closeForm() {
@@ -44,7 +51,6 @@ export default {
 
         addMovie(movie) {
             this.openForm = false;
-            console.log(movie)
             axios.post(apiUrl + 'movie/store', movie)
                 .then(res => {
                     const data = res.data;
@@ -64,7 +70,7 @@ export default {
                     }
                 })
                 .catch(err => console.error(err));
-        }
+        },
     },
 
     mounted() {
@@ -87,8 +93,9 @@ export default {
         <Form @closeForm="closeForm()" @addMovie="addMovie" :tags="this.tags" :genres="this.genres"
             :newMovieP="this.newMovie" />
     </div>
-    <button v-else @click="this.showFormCreate()">Add new Movie</button>
-    <Index :movies='this.movies' :genres='this.genres' :tags='this.tags' @deleteMovie="deleteMovie" />
+    <button v-else @click="this.closeForm(), this.showFormCreate()">Add new Movie</button>
+    <Index :movies='this.movies' :genres='this.genres' :tags='this.tags' @deleteMovie="deleteMovie"
+        @editMovie="showFormEdit" />
 </template>
 
 <style scoped></style>

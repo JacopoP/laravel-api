@@ -25,6 +25,7 @@ export default {
         </li>
       </ul>
       <button @click="$emit('deleteMovie', movie)">DELETE</button>
+      <button @click="$emit('editMovie', movie)">EDIT</button>
       <hr>
     </div>
   </section>
