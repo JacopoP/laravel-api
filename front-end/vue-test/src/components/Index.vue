@@ -15,15 +15,19 @@ export default {
 </script>
 
 <template>
-  <div v-for="movie in this.movies" :key="movie.id">
-    <h2>{{ movie.name }}</h2>
-    <h3>{{ movie.genre.name }}</h3>
-    <ul>
-      <li v-for="tag in movie.tags">
-        {{ tag.name }}
-      </li>
-    </ul>
-  </div>
+  <section>
+    <div v-for="movie in this.movies" :key="movie.id">
+      <h2>{{ movie.name }}</h2>
+      <h3>{{ movie.genre.name }}</h3>
+      <ul>
+        <li v-for="tag in movie.tags">
+          {{ tag.name }}
+        </li>
+      </ul>
+      <button @click="$emit('deleteMovie', movie)">DELETE</button>
+      <hr>
+    </div>
+  </section>
 </template>
 
 <style scoped>

@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    <section>
         <form>
             <label for="name">Title</label>
             <input type="text" name="name" v-model="this.newMovie.name">
@@ -39,7 +39,7 @@ export default {
             <input type="submit" value="ADD NEW MOVIE" @click.prevent="$emit('addMovie', this.newMovie)">
             <input type="submit" value="Cancel" @click.prevent="$emit('closeForm', this.newMovie)">
         </form>
-    </div>
+    </section>
 </template>
 
 <style scoped></style>

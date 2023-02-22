@@ -53,6 +53,17 @@ export default {
                     }
                 })
                 .catch(err => console.error(err));
+        },
+
+        deleteMovie(movie) {
+            axios.delete(apiUrl + 'movie/delete/' + movie.id)
+                .then(res => {
+                    const data = res.data;
+                    if (data.success) {
+                        this.getMovies();
+                    }
+                })
+                .catch(err => console.error(err));
         }
     },
 
@@ -77,7 +88,7 @@ export default {
             :newMovieP="this.newMovie" />
     </div>
     <button v-else @click="this.showFormCreate()">Add new Movie</button>
-    <Index :movies='this.movies' :genres='this.genres' :tags='this.tags' />
+    <Index :movies='this.movies' :genres='this.genres' :tags='this.tags' @deleteMovie="deleteMovie" />
 </template>
 
 <style scoped></style>
